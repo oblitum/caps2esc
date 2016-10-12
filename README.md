@@ -21,7 +21,7 @@ ESC when pressed alone is quite handy, specially in vi.
 
 ## Dependencies
 
-- [libudev][], [libevdev][].
+- [libevdev][]
 
 ## Building
 
@@ -34,6 +34,15 @@ The following daemonized sample execution increases the application priority
 responsible):
 
 `sudo nice -n -20 ./caps2esc >caps2esc.log 2>caps2esc.err &`
+
+## Installation
+
+I'm maintaining an Archlinux package on AUR:
+
+- <https://aur.archlinux.org/packages/caps2esc>
+
+It wraps the executable in a systemd service that can be easily started, stopped
+and enabled to execute on boot.
 
 ## How it works
 
@@ -52,7 +61,6 @@ As always, there's always a caveat:
 
 - It will "grab" the detected devices for itself.
 
-
 ## History
 
 I can't recall when I started using CAPSLOCK as both ESC and CTRL but it has
@@ -64,7 +72,7 @@ turn CAPSLOCK into CTRL).
 Moving on, permanently making Linux my home, I searched and tweaked a similar
 solution based on [xmodmap][] and [xcape][]:
 
-- https://github.com/alexandre/caps2esc
+- <https://github.com/alexandre/caps2esc>
 
 It's a simple solution but with many annoying drawbacks I couldn't stand in the
 end:
@@ -90,7 +98,6 @@ evdev, udev and uinput.
 Copyright © 2016 Francisco Lopes da Silva.
 
 [caps2esc-windows]: https://github.com/oblitum/Interception/blob/master/samples/caps2esc/caps2esc.cpp
-[libudev]: https://www.freedesktop.org/software/systemd/man/libudev.html
 [libevdev]: https://www.freedesktop.org/software/libevdev/doc/latest/index.html
 [karabiner]: https://pqrs.org/osx/karabiner/
 [xmodmap]: https://www.x.org/releases/X11R7.7/doc/man/man1/xmodmap.1.xhtml
