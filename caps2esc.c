@@ -224,6 +224,8 @@ void kill_zombies(__attribute__((unused)) int signum) {
 }
 
 int main(int argc, const char *argv[]) {
+    int initial_scan;
+
     if (argc > 2) {
         fprintf(stderr, "usage: caps2esc [device-path]\n");
         return EXIT_FAILURE;
@@ -256,7 +258,6 @@ int main(int argc, const char *argv[]) {
         struct udev_device *device = udev_device_new_from_syspath(
             udev, udev_list_entry_get_name(dev_list_entry));
         if (device) {
-            int initial_scan;
             if (should_grab(device, initial_scan = 1))
                 eventmap_exec(argv[0], udev_device_get_devnode(device));
             udev_device_unref(device);
@@ -281,7 +282,6 @@ int main(int argc, const char *argv[]) {
         if (select(fd + 1, &fds, NULL, NULL, NULL) > 0 && FD_ISSET(fd, &fds)) {
             struct udev_device *device = udev_monitor_receive_device(monitor);
             if (device) {
-                int initial_scan;
                 if (should_grab(device, initial_scan = 0))
                     eventmap_exec(argv[0], udev_device_get_devnode(device));
                 udev_device_unref(device);
