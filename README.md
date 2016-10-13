@@ -91,7 +91,7 @@ It made me envy enough, so I ported the
 [Windows Interception caps2esc][caps2esc-windows] sample to Linux based upon
 evdev, udev and uinput.
 
-## LICENSE
+## License
 
 <a href="http://www.gnu.org/copyleft/gpl.html">
 ![GPL v3](https://www.gnu.org/graphics/gplv3-127x51.png)
