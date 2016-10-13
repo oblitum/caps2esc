@@ -60,6 +60,8 @@ of such device until it disconnects, at which time it ends its execution.
 As always, there's always a caveat:
 
 - It will "grab" the detected devices for itself.
+- If you tweak your key repeat settings, check whether they get reset.  
+  Please check [this report][key-repeat-fix] about the resolution.
 
 ## History
 
@@ -104,3 +106,4 @@ Copyright © 2016 Francisco Lopes da Silva.
 [xcape]: https://github.com/alols/xcape
 [x]: https://www.x.org
 [interception]: https://github.com/oblitum/Interception
+[key-repeat-fix]: https://github.com/oblitum/caps2esc/issues/1
