@@ -61,7 +61,7 @@ int eventmap(const struct input_event *input, struct input_event output[]) {
 
         int k = 0;
 
-        if (!esc_give_up) {
+        if (!esc_give_up && input->value) {
             esc_give_up = 1;
             output[k++] = ctrl_down;
         }
@@ -81,16 +81,14 @@ int eventmap(const struct input_event *input, struct input_event output[]) {
         return 0;
     }
 
-    int k = 0;
-
     if (equal(input, &esc_down))
-        output[k++] = capslock_down;
+        output[0] = capslock_down;
     else if (equal(input, &esc_up))
-        output[k++] = capslock_up;
+        output[0] = capslock_up;
     else
-        output[k++] = *input;
+        output[0] = *input;
 
-    return k;
+    return 1;
 }
 
 int eventmap_loop(const char *devnode) {
