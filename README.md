@@ -4,7 +4,9 @@ _Transforming the most useless key **ever** in the most useful one._
 <sub>_For vi/Vim/NeoVim addicts at last_.</sub>
 
 <a href="http://www.catonmat.net/blog/why-vim-uses-hjkl-as-arrow-keys/">
+
 ![ADM-3A terminal](http://www.catonmat.net/images/why-vim-uses-hjkl/lsi-adm3a-full-keyboard.jpg)
+
 </a>
 
 ## What is it?

@@ -123,7 +123,7 @@ int eventmap_loop(const char *devnode) {
 
     for (;;) {
         struct input_event input;
-        int                rc = libevdev_next_event(
+        int rc = libevdev_next_event(
             dev, LIBEVDEV_READ_FLAG_NORMAL | LIBEVDEV_READ_FLAG_BLOCKING,
             &input);
 
@@ -187,8 +187,8 @@ int should_grab(struct udev_device *device, int initial_scan) {
             return 0;
     }
 
-    const char  input_prefix[] = "/dev/input/event";
-    const char *devnode        = udev_device_get_devnode(device);
+    const char input_prefix[] = "/dev/input/event";
+    const char *devnode       = udev_device_get_devnode(device);
     if (!devnode || strncmp(devnode, input_prefix, sizeof(input_prefix) - 1))
         return 0;
 
