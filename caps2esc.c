@@ -22,12 +22,15 @@
 
 // clang-format off
 const struct input_event
-esc_down      = {.type = EV_KEY, .code = KEY_ESC,      .value = 1},
-ctrl_down     = {.type = EV_KEY, .code = KEY_LEFTCTRL, .value = 1},
-capslock_down = {.type = EV_KEY, .code = KEY_CAPSLOCK, .value = 1},
-esc_up        = {.type = EV_KEY, .code = KEY_ESC,      .value = 0},
-ctrl_up       = {.type = EV_KEY, .code = KEY_LEFTCTRL, .value = 0},
-capslock_up   = {.type = EV_KEY, .code = KEY_CAPSLOCK, .value = 0};
+esc_up          = {.type = EV_KEY, .code = KEY_ESC,      .value = 0},
+ctrl_up         = {.type = EV_KEY, .code = KEY_LEFTCTRL, .value = 0},
+capslock_up     = {.type = EV_KEY, .code = KEY_CAPSLOCK, .value = 0},
+esc_down        = {.type = EV_KEY, .code = KEY_ESC,      .value = 1},
+ctrl_down       = {.type = EV_KEY, .code = KEY_LEFTCTRL, .value = 1},
+capslock_down   = {.type = EV_KEY, .code = KEY_CAPSLOCK, .value = 1},
+esc_repeat      = {.type = EV_KEY, .code = KEY_ESC,      .value = 2},
+ctrl_repeat     = {.type = EV_KEY, .code = KEY_LEFTCTRL, .value = 2},
+capslock_repeat = {.type = EV_KEY, .code = KEY_CAPSLOCK, .value = 2};
 // clang-format on
 
 int equal(const struct input_event *first, const struct input_event *second) {
@@ -44,7 +47,8 @@ int eventmap(const struct input_event *input, struct input_event output[]) {
     }
 
     if (capslock_is_down) {
-        if (equal(input, &capslock_down) || input->code == KEY_LEFTCTRL) {
+        if (equal(input, &capslock_down) || equal(input, &capslock_repeat) ||
+            input->code == KEY_LEFTCTRL) {
             return 0;
         }
         if (equal(input, &capslock_up)) {
@@ -66,12 +70,10 @@ int eventmap(const struct input_event *input, struct input_event output[]) {
             output[k++] = ctrl_down;
         }
 
-        if (equal(input, &esc_down))
-            output[k++] = capslock_down;
-        else if (equal(input, &esc_up))
-            output[k++] = capslock_up;
-        else
-            output[k++] = *input;
+        output[k++] = *input;
+
+        if (output[k - 1].code == KEY_ESC)
+            output[k - 1].code = KEY_CAPSLOCK;
 
         return k;
     }
@@ -81,12 +83,10 @@ int eventmap(const struct input_event *input, struct input_event output[]) {
         return 0;
     }
 
-    if (equal(input, &esc_down))
-        output[0] = capslock_down;
-    else if (equal(input, &esc_up))
-        output[0] = capslock_up;
-    else
-        output[0] = *input;
+    output[0] = *input;
+
+    if (output[0].code == KEY_ESC)
+        output[0].code = KEY_CAPSLOCK;
 
     return 1;
 }
