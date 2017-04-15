@@ -113,6 +113,8 @@ int eventmap_loop(const char *devnode) {
         goto teardown_grab;
     if (libevdev_enable_event_code(dev, EV_KEY, KEY_LEFTCTRL, NULL) < 0)
         goto teardown_grab;
+    if (libevdev_disable_event_code(dev, EV_KEY, KEY_WLAN) < 0)
+        goto teardown_grab;
 
     struct libevdev_uinput *udev;
     if (libevdev_uinput_create_from_device(dev, LIBEVDEV_UINPUT_OPEN_MANAGED,
