@@ -1,7 +1,15 @@
-# CAPS2ESC <sub>a linux port</sub>
+# caps2esc
 
 _Transforming the most useless key **ever** in the most useful one._
-<sub>_For vi/Vim/NeoVim addicts at last_.</sub>
+<sub>_For vi/Vim/NeoVim addicts at least_.</sub>
+
+# WARNING
+
+**The project now lives on https://gitlab.com/interception/linux/plugins/caps2esc
+as an [Interception Tools][interception-tools] plugin. This repository is now
+frozen.**
+
+---
 
 <a href="http://www.catonmat.net/blog/why-vim-uses-hjkl-as-arrow-keys/">
 
@@ -111,3 +119,4 @@ Copyright © 2016 Francisco Lopes da Silva.
 [x]: https://www.x.org
 [interception]: https://github.com/oblitum/Interception
 [key-repeat-fix]: https://github.com/oblitum/caps2esc/issues/1
+[interception-tools]: https://gitlab.com/interception/linux/tools
