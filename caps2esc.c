@@ -41,6 +41,9 @@ int equal(const struct input_event *first, const struct input_event *second) {
 int eventmap(const struct input_event *input, struct input_event output[]) {
     static int capslock_is_down = 0, esc_give_up = 0;
 
+    if (input->type == EV_MSC && input->code == MSC_SCAN)
+        return 0;
+
     if (input->type != EV_KEY) {
         output[0] = *input;
         return 1;
@@ -137,10 +140,17 @@ int eventmap_loop(const char *devnode) {
             break;
 
         struct input_event output[2];
-        for (int i = 0, k = eventmap(&input, output); i < k; ++i)
+        for (int i = 0, k = eventmap(&input, output); i != k; ++i) {
             if (libevdev_uinput_write_event(
                     udev, output[i].type, output[i].code, output[i].value) < 0)
                 goto teardown_udev;
+            if (i + 1 != k) {
+                if (libevdev_uinput_write_event(udev, EV_SYN, SYN_REPORT, 0) <
+                    0)
+                    goto teardown_udev;
+                usleep(20000);
+            }
+        }
     }
 
     result = 1;
